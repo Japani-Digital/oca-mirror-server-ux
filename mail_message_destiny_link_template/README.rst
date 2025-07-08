@@ -17,13 +17,13 @@ Mail Message Destiny Link Template
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fserver--ux-lightgray.png?logo=github
-    :target: https://github.com/OCA/server-ux/tree/16.0/mail_message_destiny_link_template
+    :target: https://github.com/OCA/server-ux/tree/17.0/mail_message_destiny_link_template
     :alt: OCA/server-ux
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/server-ux-16-0/server-ux-16-0-mail_message_destiny_link_template
+    :target: https://translation.odoo-community.org/projects/server-ux-17-0/server-ux-17-0-mail_message_destiny_link_template
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/server-ux&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/server-ux&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -60,21 +60,18 @@ You can call the template like this:
        """Adds a chatter message to origin and destiny records"""
        for record in self:
            destiny_records = record._create_destiny_records()  # A bunch of Destiny Records
-           mt_note_subtype_id = self.env['ir.model.data']._xmlid_to_res_id('mail.mt_note')
-
            # Add note to chatter that indicates destiny records
-           record.message_post_with_view(
+           record.message_post_with_source(
                'mail_message_destiny_link_template.message_destiny_link',
-               values={'self': record, 'destiny': destiny_records, "edit": False or True},
-               subtype_id=mt_note_subtype_id,
+               render_values={'self': record, 'destiny': destiny_records, "edit": False or True},
+               subtype_xmlid='mail.mt_note',
            )
-
            # Origin Link common usage to show differences
            for destiny_record in destiny_records:
-               destiny_record.message_post_with_view(
+               destiny_record.message_post_with_source(
                    'mail.message_origin_link',
-                   values={'self': destiny_record, 'origin': record, "edit": False or True},
-                   subtype_id=mt_note_subtype_id,
+                   render_values={'self': destiny_record, 'origin': record, "edit": False or True},
+                   subtype_xmlid='mail.mt_note',
                )
 
 Bug Tracker
@@ -83,7 +80,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/server-ux/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/server-ux/issues/new?body=module:%20mail_message_destiny_link_template%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/server-ux/issues/new?body=module:%20mail_message_destiny_link_template%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -98,7 +95,7 @@ Authors
 Contributors
 ------------
 
--  Eduardo de Miguel (``Moduon <https://www.moduon.team/>``\ \_\_)
+- Eduardo de Miguel (``Moduon <https://www.moduon.team/>``\ \_\_)
 
 Maintainers
 -----------
@@ -124,6 +121,6 @@ Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-Shide| |maintainer-rafaelbn| 
 
-This module is part of the `OCA/server-ux <https://github.com/OCA/server-ux/tree/16.0/mail_message_destiny_link_template>`_ project on GitHub.
+This module is part of the `OCA/server-ux <https://github.com/OCA/server-ux/tree/17.0/mail_message_destiny_link_template>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
